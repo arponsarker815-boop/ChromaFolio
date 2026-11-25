@@ -1,0 +1,165 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[#F9F9F8] text-zinc-900 dark:bg-[#0B0D12] dark:text-zinc-100 antialiased selection:bg-amber-200 selection:text-zinc-900 dark:selection:bg-amber-400/30 dark:selection:text-amber-100;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.font-book-serif {
+  font-family: "Fraunces", "Noto Serif Bengali", "Hind Siliguri", "Noto Sans Devanagari", Georgia, serif;
+}
+.font-book-classic {
+  font-family: "Lora", "Noto Serif Bengali", "Hind Siliguri", "Noto Sans Devanagari", Georgia, serif;
+}
+.font-book-literary {
+  font-family: "Playfair Display", "Merriweather", "Noto Serif Bengali", Georgia, serif;
+}
+.font-book-editorial {
+  font-family: "Merriweather", "Noto Serif Bengali", "Lora", Georgia, serif;
+}
+.font-book-sans {
+  font-family: "Plus Jakarta Sans", "Hind Siliguri", "Noto Sans Devanagari", sans-serif;
+}
+.font-book-humanist {
+  font-family: "Outfit", "Hind Siliguri", "Noto Sans Devanagari", sans-serif;
+}
+.font-book-mono {
+  font-family: "JetBrains Mono", "Hind Siliguri", "Noto Sans Devanagari", monospace;
+}
+.font-book-indic {
+  font-family: "Hind Siliguri", "Noto Sans Devanagari", "Plus Jakarta Sans", sans-serif;
+}
+.font-book-indic-serif {
+  font-family: "Noto Serif Bengali", "Noto Sans Devanagari", "Lora", Georgia, serif;
+}
+
+.ebook-paper-grain {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 0);
+  background-size: 18px 18px;
+}
+
+.dark .ebook-paper-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+  background-size: 18px 18px;
+}
+
+.ebook-notebook-lines {
+  background-image: linear-gradient(to bottom, transparent 27px, rgba(59, 130, 246, 0.14) 28px);
+  background-size: 100% 28px;
+}
+
+.ebook-page-edges-left {
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(245, 240, 230, 0.95) 0px,
+    rgba(245, 240, 230, 0.95) 2px,
+    rgba(180, 170, 155, 0.55) 2px,
+    rgba(180, 170, 155, 0.55) 3px
+  );
+}
+
+.ebook-page-edges-right {
+  background-image: repeating-linear-gradient(
+    to left,
+    rgba(245, 240, 230, 0.95) 0px,
+    rgba(245, 240, 230, 0.95) 2px,
+    rgba(180, 170, 155, 0.55) 2px,
+    rgba(180, 170, 155, 0.55) 3px
+  );
+}
+
+.dark .ebook-page-edges-left,
+.dark .ebook-page-edges-right {
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(42, 46, 58, 0.95) 0px,
+    rgba(42, 46, 58, 0.95) 2px,
+    rgba(20, 22, 30, 0.85) 2px,
+    rgba(20, 22, 30, 0.85) 3px
+  );
+}
+
+/* Subtle custom scrollbars for reader drawers */
+.studio-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.studio-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.studio-scroll::-webkit-scrollbar-thumb {
+  background: rgba(113, 113, 122, 0.3);
+  border-radius: 9999px;
+}
+.studio-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(113, 113, 122, 0.5);
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+/* Keep Google Translate Website Widget clean inside ChromaFolio reader */
+body {
+  top: 0px !important;
+}
+.goog-te-banner-frame.skiptranslate,
+iframe.goog-te-banner-frame,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip {
+  display: none !important;
+}
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+.chroma-gt-box .goog-te-gadget {
+  font-family: inherit !important;
+  font-size: 0 !important;
+  color: transparent !important;
+}
+.chroma-gt-box .goog-te-gadget > span {
+  display: none !important;
+}
+.chroma-gt-box .goog-te-combo {
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 12px !important;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid rgba(161, 161, 170, 0.45);
+  background-color: transparent;
+  color: inherit !important;
+  outline: none;
+  cursor: pointer;
+}

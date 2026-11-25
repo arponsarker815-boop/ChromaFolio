@@ -1,0 +1,6 @@
+{
+  "name": "ChromaFolio",
+  "description": "Convert any book PDF into a vibrant, colourful interactive eBook with 3D page spreads, highlights, TTS narration, AI study studio, and EPUB export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,153 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated reader profile storing AI engine preference and smooth voice preference.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "photoURL": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "preferredAiProvider": {
+          "type": "string",
+          "enum": ["gemini", "chatgpt"]
+        },
+        "preferredVoiceEngine": {
+          "type": "string",
+          "enum": ["google-ai", "browser"]
+        },
+        "preferredGoogleVoice": {
+          "type": "string",
+          "enum": ["Kore", "Zephyr", "Puck", "Charon", "Fenrir"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "uid",
+        "displayName",
+        "preferredAiProvider",
+        "preferredVoiceEngine",
+        "preferredGoogleVoice",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "DailyReadingGoal": {
+      "title": "DailyReadingGoal",
+      "description": "User-configurable daily reading goal (minutes or pages) and daily completion progress.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "goalType": {
+          "type": "string",
+          "enum": ["minutes", "pages"]
+        },
+        "target": {
+          "type": "integer"
+        },
+        "dateKey": {
+          "type": "string",
+          "maxLength": 16,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "minutesCompleted": {
+          "type": "integer"
+        },
+        "pagesCompleted": {
+          "type": "integer"
+        },
+        "streakDays": {
+          "type": "integer"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "ownerId",
+        "goalType",
+        "target",
+        "dateKey",
+        "minutesCompleted",
+        "pagesCompleted",
+        "streakDays",
+        "updatedAt"
+      ]
+    },
+    "WeeklyScheduleSlot": {
+      "title": "WeeklyScheduleSlot",
+      "description": "Per-weekday reading schedule slot with target time and reminder setting.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "dayKey": {
+          "type": "string",
+          "enum": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "timeOfDay": {
+          "type": "string",
+          "maxLength": 8,
+          "pattern": "^[0-2][0-9]:[0-5][0-9]$"
+        },
+        "notificationsEnabled": {
+          "type": "boolean"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "ownerId",
+        "dayKey",
+        "enabled",
+        "timeOfDay",
+        "notificationsEnabled",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Private user profile and AI/Voice preferences."
+    },
+    "/users/{userId}/goals/{goalId}": {
+      "schema": { "$ref": "#/entities/DailyReadingGoal" },
+      "description": "User daily reading goal and progress tracker."
+    },
+    "/users/{userId}/schedules/{dayKey}": {
+      "schema": { "$ref": "#/entities/WeeklyScheduleSlot" },
+      "description": "Weekly reading schedule slot per day of week."
+    }
+  }
+}
